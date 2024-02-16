@@ -2,14 +2,15 @@ package com.cz.czapi.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.cz.czapi.model.entity.User;
+import com.cz.czapi.model.dto.user.UserAccessRequest;
+import com.cz.czapicommon.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用户服务
  *
- * @author yupi
+ * @author cz
  */
 public interface UserService extends IService<User> {
 
@@ -56,4 +57,12 @@ public interface UserService extends IService<User> {
      * @return
      */
     boolean userLogout(HttpServletRequest request);
+
+    /**
+     * 用户更换签名认证
+     * @param userAccessRequest
+     * @param request
+     * @return
+     */
+    boolean updateAccessKey(UserAccessRequest userAccessRequest, HttpServletRequest request);
 }

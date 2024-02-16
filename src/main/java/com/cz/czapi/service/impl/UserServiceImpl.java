@@ -1,12 +1,16 @@
 package com.cz.czapi.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cz.czapi.common.ErrorCode;
 import com.cz.czapi.exception.BusinessException;
 import com.cz.czapi.mapper.UserMapper;
-import com.cz.czapi.model.entity.User;
+import com.cz.czapi.model.dto.user.UserAccessRequest;
 import com.cz.czapi.service.UserService;
+
+import com.cz.czapicommon.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -22,7 +26,7 @@ import static com.cz.czapi.constant.UserConstant.USER_LOGIN_STATE;
 /**
  * 用户服务实现类
  *
- * @author yupi
+ * @author cz
  */
 @Service
 @Slf4j
@@ -35,7 +39,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     /**
      * 盐值，混淆密码
      */
-    private static final String SALT = "yupi";
+    private static final String SALT = "cz";
 
     @Override
     public long userRegister(String userAccount, String userPassword, String checkPassword) {
@@ -63,10 +67,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             }
             // 2. 加密
             String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
-            // 3. 插入数据
+            // 3.分配 accessKey,secretKey
+            String accessKey = DigestUtil.md5Hex(SALT+userAccount+ RandomUtil.randomNumbers(5));
+            String secretKey = DigestUtil.md5Hex(SALT+userAccount+ RandomUtil.randomNumbers(7));
+            // 4. 插入数据
             User user = new User();
             user.setUserAccount(userAccount);
             user.setUserPassword(encryptPassword);
+            user.setAccessKey(accessKey);
+            user.setSecretKey(secretKey);
             boolean saveResult = this.save(user);
             if (!saveResult) {
                 throw new BusinessException(ErrorCode.SYSTEM_ERROR, "注册失败，数据库错误");
@@ -156,6 +165,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         return true;
     }
 
+    @Override
+    public boolean updateAccessKey(UserAccessRequest userAccessRequest, HttpServletRequest request) {
+        if(userAccessRequest == null || userAccessRequest.getId() <= 0){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        //判断是否为当前登录用户
+        Long id = userAccessRequest.getId();
+        User loginUser = getLoginUser(request);
+        Long loginUserId = loginUser.getId();
+        if(!id.equals(loginUserId)){
+            throw new BusinessException(ErrorCode.NO_AUTH_ERROR);
+        }
+        User oldUser = getById(id);
+        if(oldUser == null){
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR,"该用户不存在");
+        }
+        String accessKey = oldUser.getAccessKey();
+        String secretKey = oldUser.getSecretKey();
+        String newAccessKey = DigestUtil.md5Hex(SALT+oldUser.getUserAccount()+RandomUtil.randomNumbers(5));
+        String newSecretKey = DigestUtil.md5Hex(SALT+oldUser.getUserAccount()+ RandomUtil.randomNumbers(7));
+        if(!accessKey.equals(newAccessKey) && !secretKey.equals(newSecretKey)){
+            User user = new User();
+            user.setId(id);
+            user.setAccessKey(newAccessKey);
+            user.setSecretKey(newSecretKey);
+            boolean result = updateById(user);
+            return result;
+        }
+        return false;
+    }
 }
 
 

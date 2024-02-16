@@ -3,7 +3,7 @@ package com.cz.czapi.common;
 /**
  * 错误码
  *
- * @author yupi
+ * @author cz
  */
 public enum ErrorCode {
 

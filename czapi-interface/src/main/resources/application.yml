@@ -1,0 +1,8 @@
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+czapi:
+  client:
+    access-key: cz
+    secret-key: qnmd985211

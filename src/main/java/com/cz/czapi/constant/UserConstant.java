@@ -3,7 +3,7 @@ package com.cz.czapi.constant;
 /**
  * 用户常量
  *
- * @author yupi
+ * @author cz
  */
 public interface UserConstant {
 

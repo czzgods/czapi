@@ -9,9 +9,10 @@ import com.cz.czapi.common.ErrorCode;
 import com.cz.czapi.common.ResultUtils;
 import com.cz.czapi.exception.BusinessException;
 import com.cz.czapi.model.dto.user.*;
-import com.cz.czapi.model.entity.User;
 import com.cz.czapi.model.vo.UserVO;
 import com.cz.czapi.service.UserService;
+
+import com.cz.czapicommon.model.entity.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ import java.util.stream.Collectors;
 /**
  * 用户接口
  *
- * @author yupi
+ * @author cz
  */
 @RestController
 @RequestMapping("/user")
@@ -32,9 +33,6 @@ public class UserController {
 
     @Resource
     private UserService userService;
-
-    // region 登录相关
-
     /**
      * 用户注册
      *
@@ -235,5 +233,18 @@ public class UserController {
         return ResultUtils.success(userVOPage);
     }
 
-    // endregion
+    /**
+     * 用户更换签名认证
+     * @param userAccessRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/updateAccessKey")
+    public BaseResponse<Boolean> updateAccessKey(UserAccessRequest userAccessRequest, HttpServletRequest request) {
+        if (userAccessRequest == null || userAccessRequest.getId() == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        boolean result = userService.updateAccessKey(userAccessRequest,request);
+        return ResultUtils.success(result);
+    }
 }
