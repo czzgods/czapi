@@ -16,6 +16,11 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>com.cz</groupId>
+            <artifactId>czapi-common</artifactId>
+            <version>0.01</version>
+        </dependency>
+        <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>
             <version>3.0.9</version>

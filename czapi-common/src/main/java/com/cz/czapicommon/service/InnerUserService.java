@@ -15,8 +15,7 @@ public interface InnerUserService {
     /**
      * 数据库中查询已分配给用户秘钥
      * @param accessKsy
-     * @param secretKey
      * @return
      */
-    User getInvokeUser(String accessKsy, String secretKey);
+    User getInvokeUser(String accessKsy);
 }

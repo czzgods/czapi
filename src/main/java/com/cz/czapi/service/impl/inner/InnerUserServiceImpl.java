@@ -15,13 +15,12 @@ public class InnerUserServiceImpl implements InnerUserService {
     @Resource
     private UserMapper userMapper;
     @Override
-    public User getInvokeUser(String accessKsy, String secretKey) {
-        if(StringUtils.isAnyBlank(accessKsy,secretKey)){
+    public User getInvokeUser(String accessKsy) {
+        if(StringUtils.isAnyBlank(accessKsy)){
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getAccessKey,accessKsy);
-        queryWrapper.eq(User::getSecretKey,secretKey);
         User user = userMapper.selectOne(queryWrapper);
         return user;
     }

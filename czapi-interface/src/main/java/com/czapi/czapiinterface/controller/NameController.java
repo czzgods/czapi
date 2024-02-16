@@ -22,7 +22,7 @@ public class NameController {
     }
     @PostMapping("/user")
     public String getUsernameByPost(@RequestBody User user, HttpServletRequest request){
-        String accessKey = request.getHeader("accessKey");
+       /* String accessKey = request.getHeader("accessKey");
         String nonce = request.getHeader("nonce");
         String timestamp = request.getHeader("timestamp");
         String sign = request.getHeader("sign");
@@ -36,7 +36,7 @@ public class NameController {
         String serverSign = SignUtils.getSign(body, "qnmd985211");
         if(!sign.equals(serverSign)){
             throw new RuntimeException("无权限");
-        }
+        }*/
         String result = "POST 用户名是:"+user.getUsername();
         //调用成功后，次数+1
         return result;
