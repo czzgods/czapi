@@ -1,6 +1,5 @@
 package com.czapi.czapiinterface.controller;
 import org.springframework.web.bind.annotation.*;
-import com.cz.czapiclientsdk.utils.SignUtils;
 import com.cz.czapiclientsdk.model.User;
 import javax.servlet.http.HttpServletRequest;
 

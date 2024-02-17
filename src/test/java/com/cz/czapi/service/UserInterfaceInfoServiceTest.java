@@ -1,8 +1,6 @@
 package com.cz.czapi.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.cz.czapi.model.entity.Sentence;
-import com.cz.czapi.service.impl.SentenceService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

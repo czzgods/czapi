@@ -1,9 +1,10 @@
 package com.cz.czapi.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.cz.czapi.model.entity.Sentence;
-import com.cz.czapi.service.impl.SentenceService;
 import com.cz.czapi.mapper.SentenceMapper;
+import com.cz.czapi.model.entity.Sentence;
+import com.cz.czapi.service.SentenceService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,8 +14,15 @@ import org.springframework.stereotype.Service;
 */
 @Service
 public class SentenceServiceImpl extends ServiceImpl<SentenceMapper, Sentence>
-    implements SentenceService{
+    implements SentenceService {
 
+    @Override
+    public Sentence getSentence(long id) {
+        LambdaQueryWrapper<Sentence> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Sentence::getId,id);
+        Sentence sentence = getOne(queryWrapper);
+        return sentence;
+    }
 }
 
 

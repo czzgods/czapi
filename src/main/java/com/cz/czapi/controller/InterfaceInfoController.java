@@ -1,5 +1,6 @@
 package com.cz.czapi.controller;
 
+import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cz.czapi.annotation.AuthCheck;
@@ -7,12 +8,11 @@ import com.cz.czapi.common.*;
 import com.cz.czapi.constant.CommonConstant;
 import com.cz.czapi.constant.UserConstant;
 import com.cz.czapi.exception.BusinessException;
-import com.cz.czapi.model.dto.interfaceInfo.InterfaceInfoAddRequest;
-import com.cz.czapi.model.dto.interfaceInfo.InterfaceInfoInvokeRequest;
-import com.cz.czapi.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
-import com.cz.czapi.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
+import com.cz.czapi.model.dto.interfaceInfo.*;
+import com.cz.czapi.model.entity.Sentence;
 import com.cz.czapi.model.enums.InterfaceInfoStatusEnum;
 import com.cz.czapi.service.InterfaceInfoService;
+import com.cz.czapi.service.SentenceService;
 import com.cz.czapi.service.UserService;
 import com.cz.czapiclientsdk.client.CzApiClient;
 import com.cz.czapi.model.entity.InterfaceInfo;
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -44,6 +45,8 @@ public class InterfaceInfoController {
 
     @Resource
     private CzApiClient czApiClient;
+    @Resource
+    private SentenceService sentenceService;
 
     /**
      * 创建
@@ -269,7 +272,7 @@ public class InterfaceInfoController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         Long id = infoInvokeRequest.getId();
-        String userRequestParams = infoInvokeRequest.getUserRequestParams();
+        String userRequestParams = infoInvokeRequest.getRequestParams();
         //判断接口是否存在
         InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
         if(oldInterfaceInfo == null){
@@ -286,5 +289,42 @@ public class InterfaceInfoController {
         com.cz.czapiclientsdk.model.User user = gson.fromJson(userRequestParams, com.cz.czapiclientsdk.model.User.class);
         String usernameByPost = tempClient.getUsernameByPost(user);
         return ResultUtils.success(usernameByPost);
+    }
+    /**
+     * 测试调用
+     *
+     * @param interfaceInfoSentenceRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/sentence")
+    public BaseResponse<Object> sentenceInterfaceInfo(@RequestBody InterfaceInfoSentenceRequest interfaceInfoSentenceRequest,
+                                                      HttpServletRequest request) {
+        if(interfaceInfoSentenceRequest == null || interfaceInfoSentenceRequest.getId() <= 0){
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        Long id = interfaceInfoSentenceRequest.getId();
+        //判断接口是否存在
+        InterfaceInfo oldInterfaceInfo = interfaceInfoService.getById(id);
+        if(oldInterfaceInfo == null){
+            throw new BusinessException(ErrorCode.NOT_FOUND_ERROR);
+        }
+        if(oldInterfaceInfo.getStatus() == InterfaceInfoStatusEnum.OFFLINE.getValue()){
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR,"该功能接口已关闭");
+        }
+        User loginUser = userService.getLoginUser(request);
+        String accessKey = loginUser.getAccessKey();
+        String secretKey = loginUser.getSecretKey();
+        CzApiClient tempClient = new CzApiClient(accessKey,secretKey);
+        Gson gson = new Gson();
+        // 创建 Random 对象
+        Random random = new Random();
+        // 生成随机数，范围是 [1, 31]
+        long sentenceId = random.nextInt(31) + 1;
+        Sentence serviceSentence = sentenceService.getSentence(sentenceId);
+        String s = serviceSentence.getSentence();
+        com.cz.czapiclientsdk.model.Sentence sentence = gson.fromJson(s, com.cz.czapiclientsdk.model.Sentence.class);
+        String clientSentence = tempClient.getSentence(sentence);
+        return ResultUtils.success(clientSentence);
     }
 }

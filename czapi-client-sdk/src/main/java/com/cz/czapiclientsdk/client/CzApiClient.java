@@ -5,6 +5,7 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
+import com.cz.czapiclientsdk.model.Sentence;
 import com.cz.czapiclientsdk.model.User;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +50,15 @@ public class CzApiClient {
         System.out.println(result);
         return result;
     }
-
+    public String getSentence(Sentence sentence){
+        String json = JSONUtil.toJsonStr(sentence);
+        String result = HttpRequest.get(GATEWAY_HOST + "/api/name/user")
+                .addHeaders(getHeaderMap(json))
+                .body(json)
+                .execute()
+                .body();
+        return result;
+    }
     /**
      * 该方法用于往请求头里加参数
      * @param body

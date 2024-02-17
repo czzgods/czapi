@@ -10,15 +10,10 @@ import java.io.Serializable;
  * @TableName product
  */
 @Data
-public class InterfaceInfoInvokeRequest implements Serializable {
+public class InterfaceInfoSentenceRequest implements Serializable {
     /**
      * 主键
      */
     private Long id;
-    /**
-     * 请求参数
-     */
-    private String requestParams;
-
     private static final long serialVersionUID = 1L;
 }

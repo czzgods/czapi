@@ -1,7 +1,7 @@
 package com.cz.czapi.mapper;
 
-import com.cz.czapi.model.entity.Sentence;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cz.czapi.model.entity.Sentence;
 
 /**
 * @author 李钟意
