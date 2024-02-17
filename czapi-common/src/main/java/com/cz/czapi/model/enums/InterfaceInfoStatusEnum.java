@@ -1,4 +1,4 @@
-package com.cz.czapicommon.model.enums;
+package com.cz.czapi.model.enums;
 
 import java.util.Arrays;
 import java.util.List;

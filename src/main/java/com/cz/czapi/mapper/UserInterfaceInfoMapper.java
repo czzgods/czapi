@@ -1,7 +1,9 @@
 package com.cz.czapi.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cz.czapicommon.model.entity.UserInterfaceInfo;
+import com.cz.czapi.model.entity.UserInterfaceInfo;
+
+import java.util.List;
 
 /**
 * @author 李钟意
@@ -10,7 +12,7 @@ import com.cz.czapicommon.model.entity.UserInterfaceInfo;
 * @Entity com.cz.czapi.model.entity.UserInterfaceInfo
 */
 public interface UserInterfaceInfoMapper extends BaseMapper<UserInterfaceInfo> {
-
+    List<UserInterfaceInfo> listTopInvokeInterfaceInfo(int limit);
 }
 
 

@@ -6,7 +6,7 @@ import com.cz.czapi.common.ErrorCode;
 import com.cz.czapi.exception.BusinessException;
 import com.cz.czapi.mapper.UserInterfaceInfoMapper;
 import com.cz.czapi.service.UserInterfaceInfoService;
-import com.cz.czapicommon.model.entity.UserInterfaceInfo;
+import com.cz.czapi.model.entity.UserInterfaceInfo;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;

@@ -10,7 +10,7 @@ import com.cz.czapi.mapper.UserMapper;
 import com.cz.czapi.model.dto.user.UserAccessRequest;
 import com.cz.czapi.service.UserService;
 
-import com.cz.czapicommon.model.entity.User;
+import com.cz.czapi.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

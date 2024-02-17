@@ -3,7 +3,7 @@ package com.cz.czapi.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cz.czapi.model.dto.user.UserAccessRequest;
-import com.cz.czapicommon.model.entity.User;
+import com.cz.czapi.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 

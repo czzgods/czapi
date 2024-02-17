@@ -1,7 +1,7 @@
 package com.cz.czapi.service.impl.inner;
 
 import com.cz.czapi.service.UserInterfaceInfoService;
-import com.cz.czapicommon.service.InnerUserInterfaceInfoService;
+import com.cz.czapi.service.InnerUserInterfaceInfoService;
 import org.apache.dubbo.config.annotation.DubboService;
 
 import javax.annotation.Resource;

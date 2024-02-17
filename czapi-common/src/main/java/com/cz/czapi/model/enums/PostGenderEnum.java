@@ -1,25 +1,24 @@
-package com.cz.czapicommon.model.enums;
+package com.cz.czapi.model.enums;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 帖子审核状态枚举
+ * 帖子性别枚举
  *
  * @author cz
  */
-public enum PostReviewStatusEnum {
+public enum PostGenderEnum {
 
-    REVIEWING("待审核", 0),
-    PASS("通过", 1),
-    REJECT("拒绝", 2);
+    MALE("男", 0),
+    FEMALE("女", 1);
 
     private final String text;
 
     private final int value;
 
-    PostReviewStatusEnum(String text, int value) {
+    PostGenderEnum(String text, int value) {
         this.text = text;
         this.value = value;
     }

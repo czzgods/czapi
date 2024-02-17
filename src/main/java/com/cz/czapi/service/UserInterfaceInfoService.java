@@ -2,7 +2,7 @@ package com.cz.czapi.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.cz.czapicommon.model.entity.UserInterfaceInfo;
+import com.cz.czapi.model.entity.UserInterfaceInfo;
 
 /**
  * 用户接口信息服务

@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cz.czapi.common.ErrorCode;
 import com.cz.czapi.exception.BusinessException;
 import com.cz.czapi.mapper.UserMapper;
-import com.cz.czapicommon.model.entity.User;
-import com.cz.czapicommon.service.InnerUserService;
+import com.cz.czapi.model.entity.User;
+import com.cz.czapi.service.InnerUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.dubbo.config.annotation.DubboService;
 

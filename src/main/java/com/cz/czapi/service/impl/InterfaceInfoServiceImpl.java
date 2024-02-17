@@ -5,7 +5,7 @@ import com.cz.czapi.common.ErrorCode;
 import com.cz.czapi.exception.BusinessException;
 import com.cz.czapi.mapper.InterfaceInfoMapper;
 import com.cz.czapi.service.InterfaceInfoService;
-import com.cz.czapicommon.model.entity.InterfaceInfo;
+import com.cz.czapi.model.entity.InterfaceInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 

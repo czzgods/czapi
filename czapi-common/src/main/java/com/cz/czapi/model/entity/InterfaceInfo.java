@@ -1,4 +1,4 @@
-package com.cz.czapicommon.model.entity;
+package com.cz.czapi.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

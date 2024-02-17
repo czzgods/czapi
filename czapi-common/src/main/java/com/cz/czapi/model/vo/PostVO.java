@@ -1,8 +1,8 @@
-package com.cz.czapicommon.model.vo;
+package com.cz.czapi.model.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import com.cz.czapicommon.model.entity.Post;
+import com.cz.czapi.model.entity.Post;
 
 /**
  * 帖子视图

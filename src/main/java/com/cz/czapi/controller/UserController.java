@@ -12,7 +12,7 @@ import com.cz.czapi.model.dto.user.*;
 import com.cz.czapi.model.vo.UserVO;
 import com.cz.czapi.service.UserService;
 
-import com.cz.czapicommon.model.entity.User;
+import com.cz.czapi.model.entity.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;

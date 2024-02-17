@@ -1,4 +1,4 @@
-package com.cz.czapicommon.model.vo;
+package com.cz.czapi.model.vo;
 
 import lombok.Data;
 

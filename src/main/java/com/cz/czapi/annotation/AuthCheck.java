@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  *
  * @author cz
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface AuthCheck {
 
