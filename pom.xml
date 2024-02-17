@@ -19,6 +19,11 @@
     </properties>
     <dependencies>
         <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.3</version>
+        </dependency>
+        <dependency>
             <groupId>com.cz</groupId>
             <artifactId>czapi-common</artifactId>
             <version>0.01</version>
